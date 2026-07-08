@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -15,7 +16,7 @@ import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 function AppRoutes() {
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
 
   if (loading) {
     return (
@@ -31,6 +32,10 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route
         path="/"
+        element={user ? <Navigate to="/dashboard" replace /> : <Home />}
+      />
+      <Route
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <Dashboard />

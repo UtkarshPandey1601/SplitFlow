@@ -11,7 +11,7 @@ export default function Navbar() {
     try {
       await logout();
       toast.success('Logged out');
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       toast.error('Logout failed');
     }
